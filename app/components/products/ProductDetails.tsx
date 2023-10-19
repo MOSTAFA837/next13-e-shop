@@ -6,6 +6,7 @@ import { CartProductType, SelectedImgType } from "@/utils/types";
 import { SetColor } from "./SetColor";
 import { SetQuantity } from "./SetQuantity";
 import { Button } from "../Button";
+import { ProductImage } from "./ProductImage";
 
 interface Props {
   product: any;
@@ -56,7 +57,11 @@ export default function ProductDetails({ product }: Props) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div>Images</div>
+      <ProductImage
+        cartProduct={cartProduct}
+        product={product}
+        handleColorSelect={handleColorSelect}
+      />
 
       <div className="flex flex-col gap-1 text-sm">
         <h2 className="text-3xl font-semibold text-black/80">{product.name}</h2>
