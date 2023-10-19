@@ -4,13 +4,15 @@ import { useCallback, useState } from "react";
 import { Rating } from "@mui/material";
 import { CartProductType, SelectedImgType } from "@/utils/types";
 import { SetColor } from "./SetColor";
+import { SetQuantity } from "./SetQuantity";
+import { Button } from "../Button";
 
 interface Props {
   product: any;
 }
 
 export default function ProductDetails({ product }: Props) {
-  const { id, name, description, category, brand, quantity, price } = product;
+  const { id, name, description, category, brand, price } = product;
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
     id,
@@ -19,7 +21,7 @@ export default function ProductDetails({ product }: Props) {
     category,
     brand,
     selectedImage: { ...product.images[0] },
-    quantity,
+    quantity: 1,
     price,
   });
 
@@ -35,6 +37,22 @@ export default function ProductDetails({ product }: Props) {
     },
     [cartProduct.selectedImage]
   );
+
+  const handleQtyIncrease = useCallback(() => {
+    setCartProduct((prev) => {
+      return { ...prev, quantity: prev.quantity + 1 };
+    });
+  }, [cartProduct]);
+
+  const handleQtyDecrease = useCallback(() => {
+    if (cartProduct.quantity === 1) {
+      return (cartProduct.quantity = 1);
+    }
+
+    setCartProduct((prev) => {
+      return { ...prev, quantity: prev.quantity - 1 };
+    });
+  }, [cartProduct]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -81,11 +99,17 @@ export default function ProductDetails({ product }: Props) {
 
         <hr className=" my-2" />
 
-        <div>Quantity</div>
+        <SetQuantity
+          cartProduct={cartProduct}
+          handleQtyIncrease={handleQtyIncrease}
+          handleQtyDecrease={handleQtyDecrease}
+        />
 
         <hr className=" my-2" />
 
-        <div>Add to cart</div>
+        <div className="sm:max-w-[300px]">
+          <Button label="Add to cart" onClick={() => {}} />
+        </div>
       </div>
     </div>
   );
