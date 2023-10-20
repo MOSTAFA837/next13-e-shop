@@ -7,6 +7,7 @@ import { SetColor } from "./SetColor";
 import { SetQuantity } from "./SetQuantity";
 import { Button } from "../Button";
 import { ProductImage } from "./ProductImage";
+import { useCart } from "@/hooks/useCart";
 
 interface Props {
   product: any;
