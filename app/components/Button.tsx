@@ -7,6 +7,7 @@ interface Props {
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
+  isSubmit?: boolean;
   custom?: string;
   icon?: IconType;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -17,16 +18,17 @@ export const Button: React.FC<Props> = ({
   disabled,
   outline,
   small,
+  isSubmit,
   custom,
   icon: Icon,
   onClick,
 }) => {
   return (
-    <div className="sm:max-w-[300px]">
+    <div className={isSubmit ? "w-full" : "sm:max-w-[300px]"}>
       <button
         onClick={onClick}
         disabled={disabled}
-        className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-black/70
+        className={`flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-black/70
       ${
         outline
           ? "bg-white text-black/70 shadow-[2px_2px_0px_#333]"
