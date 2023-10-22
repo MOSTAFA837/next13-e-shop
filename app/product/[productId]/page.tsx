@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function page({ params }: { params: Props }) {
-  const product = products[2];
+  const product = products.find((item) => item.id === params.productId);
 
   return (
     <div className="p-8">
