@@ -8,6 +8,9 @@ import { Input } from "../components/inputs/Input";
 import { Button } from "../components/Button";
 import { AiOutlineGoogle } from "react-icons/ai";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,10 +26,24 @@ export default function LoginForm() {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    console.log(data);
+    signIn("credentials", { ...data, redirect: false }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        router.push("/cart");
+        router.refresh();
+        toast.success("Logged in");
+      }
+
+      if (callback?.error) {
+        toast.success(callback.error);
+      }
+    });
   };
 
   return (
