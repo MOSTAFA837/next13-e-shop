@@ -28,7 +28,7 @@ export const UserMenu: React.FC<Props> = ({ currentUser }) => {
           onClick={toggleOpen}
           className="p-2 border-[1px] border-slate-400 flex items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700"
         >
-          <Avatar />
+          <Avatar src={currentUser?.image} />
           <AiFillCaretDown />
         </div>
 

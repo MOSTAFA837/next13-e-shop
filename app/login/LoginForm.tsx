@@ -84,7 +84,9 @@ export default function LoginForm() {
         outline
         isSubmit
         label="Continue with google"
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
         icon={AiOutlineGoogle}
       />
 

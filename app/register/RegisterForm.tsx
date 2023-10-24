@@ -101,7 +101,9 @@ export default function RegisterForm() {
         outline
         isSubmit
         label="Sign up with google"
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
         icon={AiOutlineGoogle}
       />
 

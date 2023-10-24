@@ -11,7 +11,7 @@ export const Avatar: React.FC<Props> = ({ src }) => {
       <Image
         src={src}
         alt="Avatar"
-        className="rounded"
+        className=" rounded-full"
         height={30}
         width={30}
       />
