@@ -8,8 +8,13 @@ import { Avatar } from "../Avatar";
 import Link from "next/link";
 import { MenuItem } from "./MenuItem";
 import { Backdrop } from "./Backdrop";
+import { SafeUser } from "@/utils/types";
 
-export default function UserMenu() {
+interface Props {
+  currentUser: SafeUser | null;
+}
+
+export const UserMenu: React.FC<Props> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
@@ -29,32 +34,34 @@ export default function UserMenu() {
 
         {isOpen && (
           <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
-            <div>
-              <Link href="/orders">
-                <MenuItem onClick={toggleOpen}>Orders</MenuItem>
-              </Link>
-              <Link href="/admin">
-                <MenuItem onClick={toggleOpen}>Admin dashboard</MenuItem>
-              </Link>
+            {currentUser ? (
+              <div>
+                <Link href="/orders">
+                  <MenuItem onClick={toggleOpen}>Orders</MenuItem>
+                </Link>
+                <Link href="/admin">
+                  <MenuItem onClick={toggleOpen}>Admin dashboard</MenuItem>
+                </Link>
 
-              <MenuItem
-                onClick={() => {
-                  toggleOpen();
-                  signOut();
-                }}
-              >
-                Logout
-              </MenuItem>
-            </div>
-
-            <div>
-              <Link href="/login">
-                <MenuItem onClick={toggleOpen}>Login</MenuItem>
-              </Link>
-              <Link href="/register">
-                <MenuItem onClick={toggleOpen}>Register</MenuItem>
-              </Link>
-            </div>
+                <MenuItem
+                  onClick={() => {
+                    toggleOpen();
+                    signOut();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </div>
+            ) : (
+              <div>
+                <Link href="/login">
+                  <MenuItem onClick={toggleOpen}>Login</MenuItem>
+                </Link>
+                <Link href="/register">
+                  <MenuItem onClick={toggleOpen}>Register</MenuItem>
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -62,4 +69,4 @@ export default function UserMenu() {
       {isOpen && <Backdrop onClick={toggleOpen} />}
     </>
   );
-}
+};
